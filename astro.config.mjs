@@ -1,10 +1,10 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
-import vercel from '@astrojs/vercel/serverless';
 
 // https://astro.build/config
 export default defineConfig({
-  adapter: vercel(),
+  // User page: served from the domain root, so no `base` path needed.
+  site: 'https://manalikaswa.github.io',
   integrations: [tailwind()],
   server: {
     port: 4321,
