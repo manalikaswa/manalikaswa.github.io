@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Manali Kaswa",
   title: "Manali Kaswa",
   description:
-    "Backend engineer building distributed, microservices-based enterprise systems from the ground up. Strong in AWS, DevOps, OAuth2 identity, and Golang — moving towards software architecture and product management.",
+    "Product engineer who builds distributed, microservices-based enterprise systems from the ground up — turning messy requirements into architecture that ships. I am passionate about building products that are simple, flawless and wow.",
   social: {
     github: "https://github.com/manalikaswa",
     twitter: "https://x.com/manalikaswa",
@@ -37,11 +37,11 @@ export const aboutContent = {
   meta: {
     title: "About - Manali Kaswa",
     description:
-      "Backend engineer building distributed enterprise systems — AWS, DevOps, OAuth2 identity, and Golang, moving towards architecture and product management.",
+      "Product engineer who builds distributed, microservices-based enterprise systems from the ground up — turning messy requirements into architecture that ships. I am passionate about building products that are simple, flawless and wow.",
   },
   title: "About Me",
   description:
-    "I'm strong in AWS, DevOps, User Identity (OAuth2), and Golang, with hands-on experience owning features, releases, and customer requirements end-to-end.\nOver the last few years I've built and scaled IoT cloud platforms — from identity systems and large device fleets to FinOps cost optimization.\nI'm now working towards software architecture and product management.\nOutside of work I'm an avid reader and I write about stuff on Medium.",
+    "I'm strong in AWS, DevOps, User Identity (OAuth2), and Golang, with hands-on experience owning features, releases, and customer requirements end-to-end.\nOver the last few years I've built and scaled IoT cloud platforms — from identity systems and large device fleets to FinOps cost optimization.\nI'm now focused on software architecture and product management.\nOutside of work I'm an avid reader and I write about stuff on Medium.",
   skills: [
     "Go",
     "AWS",
