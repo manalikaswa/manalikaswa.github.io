@@ -25,7 +25,7 @@ const categoriesData = JSON.stringify(categories);
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <title>Blog Posts</title>
+    <title>Blog Posts - Manali Kaswa</title>
     <meta name="description" content="Read my latest blog posts and articles" />
     <script is:inline>
       (function () {
@@ -116,7 +116,7 @@ const categoriesData = JSON.stringify(categories);
               (post) => `
             <a href="${post.href}">
               <div
-                class="relative border border-transparent border-dashed cursor-pointer p-7 group rounded-2xl"
+                class="relative border border-transparent border-dashed cursor-pointer p-4 sm:p-7 group rounded-2xl"
               >
                 <div
                   class="absolute inset-0 z-20 w-full h-full duration-300 ease-out bg-white dark:bg-neutral-950 border border-dashed rounded-2xl border-neutral-300 dark:border-neutral-700 group-hover:-translate-x-1 group-hover:-translate-y-1"
@@ -133,7 +133,7 @@ const categoriesData = JSON.stringify(categories);
                 <div
                   class="relative z-30 duration-300 ease-out group-hover:-translate-x-1 group-hover:-translate-y-1"
                 >
-                  <div class="flex gap-8">
+                  <div class="flex flex-col-reverse sm:flex-row gap-4 sm:gap-8">
                     <div class="flex-[2]">
                       <span
                         class="inline-block mb-3 px-2.5 py-0.5 text-xs font-medium rounded-full bg-neutral-100 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700"
@@ -444,7 +444,7 @@ const categoriesData = JSON.stringify(categories);
 
     <main class="flex-1 relative z-10">
       <Navigation />
-      <section class="relative z-20 w-[896px] mx-auto mt-24">
+      <section class="relative z-20 max-w-4xl w-full mx-auto mt-24 px-7 lg:px-0">
         <div class="flex justify-between items-center mb-8">
           <h2
             class="text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100 sm:text-3xl lg:text-4xl"
