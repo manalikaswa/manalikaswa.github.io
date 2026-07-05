@@ -1,33 +1,7 @@
 ---
-import Navigation from "../../components/Navigation.astro";
-import Footer from "../../components/Footer.astro";
-import { getPostBySlug, getAllPostSlugs } from "../../utils/getPosts";
-
-export async function getStaticPaths() {
-  const slugs = getAllPostSlugs();
-  return slugs.map((slug) => ({
-    params: { slug },
-  }));
-}
-
-const { slug } = Astro.params;
-
-if (!slug) {
-  return Astro.redirect("/posts/");
-}
-
-const post = getPostBySlug(slug);
-
-if (!post) {
-  return Astro.redirect("/posts/");
-}
-
-const { frontmatter, Content } = post;
-
-if (!Content) {
-  console.error(`Content component not found for slug: ${slug}`);
-  return Astro.redirect("/posts/");
-}
+import Navigation from "../components/Navigation.astro";
+import Footer from "../components/Footer.astro";
+import { talksContent } from "../config/content.ts";
 ---
 
 <html lang="en">
@@ -36,8 +10,8 @@ if (!Content) {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <title>{frontmatter.title}</title>
-    <meta name="description" content={frontmatter.description} />
+    <title>{talksContent.meta.title}</title>
+    <meta name="description" content={talksContent.meta.description} />
     <script is:inline>
       (function () {
         const savedTheme = localStorage.getItem("theme") || "light";
@@ -71,14 +45,6 @@ if (!Content) {
               }
             }
           });
-
-        const proseContainer = document.querySelector(".prose");
-        if (proseContainer) {
-          const firstH1 = proseContainer.querySelector("h1");
-          if (firstH1) {
-            firstH1.remove();
-          }
-        }
       });
     </script>
     <style>
@@ -101,11 +67,6 @@ if (!Content) {
         margin: 0;
         padding: 0;
         flex-shrink: 0;
-      }
-      .prose h1:first-of-type,
-      .prose > h1:first-child,
-      article .prose h1:first-child {
-        display: none !important;
       }
 
       .dot-hexagon-light {
@@ -153,56 +114,67 @@ if (!Content) {
 
     <main class="flex-1 relative z-10">
       <Navigation />
-
-      <article class="relative z-20 w-[896px] mx-auto mt-24 mb-12 px-7 lg:px-0">
-        <header class="text-center">
-          {
-            frontmatter.category && (
-              <span class="inline-block mb-3 px-2.5 py-0.5 text-xs font-medium rounded-full bg-neutral-100 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">
-                {frontmatter.category}
-              </span>
-            )
-          }
-          <h1
-            class="text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100 sm:text-3xl lg:text-4xl mb-1.5"
+      <section class="relative z-20 max-w-4xl mx-auto mt-32 mb-12 px-7 lg:px-0">
+        <div class="relative z-20 w-full mx-auto lg:mx-0">
+          <h2
+            class="text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100 sm:text-3xl lg:text-4xl"
           >
-            {frontmatter.title}
-          </h1>
+            {talksContent.title}
+          </h2>
+          <p
+            class="mt-3 text-sm leading-6 text-neutral-600 dark:text-neutral-400 sm:leading-7 lg:leading-8 sm:text-base lg:text-lg"
+          >
+            {talksContent.description}
+          </p>
+
           <div
-            class="flex items-center justify-center gap-4 text-sm text-neutral-600 dark:text-neutral-400 mb-1.5"
+            class="grid items-stretch w-full grid-cols-1 my-8 gap-8 sm:grid-cols-2"
           >
-            <time datetime={frontmatter.date || ""}>
-              {
-                frontmatter.date
-                  ? new Date(frontmatter.date).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })
-                  : ""
-              }
-            </time>
-            <span>•</span>
-            <span>{frontmatter.readTime}</span>
-          </div>
-        </header>
-
-        {
-          frontmatter.description && (
-            <p class="text-lg text-neutral-600 dark:text-neutral-400 mb-10 text-center">
-              {frontmatter.description}
-            </p>
-          )
-        }
-
-        <div
-          class="rounded-2xl bg-white/90 dark:bg-neutral-900/90 backdrop-blur-sm px-6 py-8 sm:px-10 sm:py-10"
-        >
-          <div class="prose prose-neutral dark:prose-invert max-w-none">
-            <Content />
+            {
+              talksContent.talks.map((talk) => (
+                <div class="flex flex-col">
+                  <div class="relative w-full aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-800">
+                    <iframe
+                      class="absolute inset-0 w-full h-full"
+                      src={`https://www.youtube-nocookie.com/embed/${talk.videoId}`}
+                      title={talk.title}
+                      loading="lazy"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowfullscreen
+                    />
+                  </div>
+                  <div class="mt-4 px-1">
+                    <h3 class="text-base font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
+                      {talk.title}
+                    </h3>
+                    <p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                      {talk.description}
+                    </p>
+                    {talk.slides && talk.slides.count > 0 && (
+                      <a
+                        href={`/talks/${talk.slug}/`}
+                        class="group mt-3 inline-flex items-center gap-1 text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300"
+                      >
+                        View slides & summary
+                        <svg
+                          class="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          stroke-width="2.5"
+                        >
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                      </a>
+                    )}
+                  </div>
+                </div>
+              ))
+            }
           </div>
         </div>
-      </article>
+      </section>
     </main>
 
     <Footer />

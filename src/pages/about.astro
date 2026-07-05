@@ -14,7 +14,7 @@ import { aboutContent } from "../config/content.ts";
     <meta name="description" content={aboutContent.meta.description} />
     <script is:inline>
       (function () {
-        const savedTheme = localStorage.getItem("theme") || "dark";
+        const savedTheme = localStorage.getItem("theme") || "light";
         const prefersDark = window.matchMedia(
           "(prefers-color-scheme: dark)"
         ).matches;
@@ -104,11 +104,19 @@ import { aboutContent } from "../config/content.ts";
           </h2>
           <div class="flex flex-col md:flex-row gap-8 mt-3 sm:mt-4 lg:mt-6">
             <div class="w-full md:w-1/2 flex flex-col">
-              <p
-                class="text-sm leading-6 text-gray-600 dark:text-neutral-400 sm:leading-7 lg:leading-8 sm:text-base lg:text-lg"
-              >
-                {aboutContent.description}
-              </p>
+              <div class="flex flex-col gap-3">
+                {
+                  aboutContent.description
+                    .split("\n")
+                    .map((para) => para.trim())
+                    .filter((para) => para.length > 0)
+                    .map((para) => (
+                      <p class="text-sm leading-6 text-gray-600 dark:text-neutral-400 sm:leading-7 lg:leading-8 sm:text-base lg:text-lg">
+                        {para}
+                      </p>
+                    ))
+                }
+              </div>
               <div class="mt-auto pt-4 flex flex-wrap gap-2">
                 {
                   aboutContent.skills.map((skill) => (
@@ -120,11 +128,11 @@ import { aboutContent } from "../config/content.ts";
               </div>
             </div>
             <div class="w-full md:w-1/2 flex justify-end">
-              <div class="relative w-[360px] h-[360px]">
+              <div class="relative w-[340px] h-[340px]">
                 <img
                   src={aboutContent.image.src}
                   alt={aboutContent.image.alt}
-                  class="object-cover rounded-xl w-full h-full"
+                  class="object-cover rounded-full w-full h-full"
                 />
               </div>
             </div>
@@ -168,6 +176,41 @@ import { aboutContent } from "../config/content.ts";
                       <p class="text-sm font-light text-neutral-600 dark:text-neutral-400">
                         {item.description}
                       </p>
+                      {item.contributions && item.contributions.length > 0 && (
+                        <div class="mt-4 flex flex-col gap-3">
+                          {item.contributions.map((group) => (
+                            <div>
+                              <p class="text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
+                                {group.category}
+                              </p>
+                              <ul class="mt-1.5 flex flex-col gap-1">
+                                {group.items.map((c) => (
+                                  <li class="flex gap-2 text-sm font-light text-neutral-600 dark:text-neutral-400">
+                                    <span class="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-neutral-400 dark:bg-neutral-500" />
+                                    <span>{c}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                      {item.recognitions && item.recognitions.length > 0 && (
+                        <div class="mt-3 flex flex-wrap gap-2">
+                          {item.recognitions.map((award) => (
+                            <span class="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium bg-amber-100 text-amber-800 dark:bg-amber-500/15 dark:text-amber-300 rounded-full">
+                              <svg
+                                class="w-3 h-3"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                              >
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.922-.755 1.688-1.54 1.118l-3.367-2.447a1 1 0 00-1.176 0l-3.367 2.447c-.784.57-1.838-.196-1.539-1.118l1.286-3.957a1 1 0 00-.363-1.118L2.98 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
+                              </svg>
+                              {award}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))
@@ -177,21 +220,21 @@ import { aboutContent } from "../config/content.ts";
 
           <div class="w-[360px] ml-8">
             <h2 class="mb-2 text-2xl font-bold dark:text-neutral-200">
-              {aboutContent.connect.title}
+              {aboutContent.certifications.title}
             </h2>
-            <div class="py-[30px]">
-              <p
-                class="text-sm leading-6 text-gray-600 dark:text-neutral-400 sm:leading-7 lg:leading-8 sm:text-base lg:text-lg"
-              >
-                {aboutContent.connect.description}
-                <a
-                  href={aboutContent.connect.email.href}
-                  class="text-indigo-600 underline"
-                >
-                  {aboutContent.connect.email.text}
-                </a>
-                .
-              </p>
+            <div class="py-6 flex flex-col gap-4">
+              {
+                aboutContent.certifications.items.map((cert) => (
+                  <div class="flex flex-col">
+                    <p class="text-sm font-semibold text-neutral-800 dark:text-neutral-100">
+                      {cert.name}
+                    </p>
+                    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+                      {cert.issuer} · {cert.year}
+                    </p>
+                  </div>
+                ))
+              }
             </div>
           </div>
         </div>

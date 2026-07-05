@@ -5,6 +5,7 @@ const allMarkdownModules = import.meta.glob<{
     date?: string;
     readTime?: string;
     image?: string;
+    category?: string;
     slug?: string;
   };
   default: any;
@@ -16,6 +17,7 @@ export interface Post {
   date: string;
   readTime: string;
   image: string;
+  category: string;
   slug: string;
   href: string;
 }
@@ -52,6 +54,7 @@ export function getAllPosts(): Post[] {
       date: frontmatter.date || '',
       readTime: frontmatter.readTime || '5 min read',
       image: frontmatter.image || '/assets/images/posts/post1.jpg',
+      category: frontmatter.category || 'Others',
       slug: slug,
       href: `/posts/${slug}`,
     });
@@ -77,6 +80,7 @@ export function getPostBySlug(slug: string): {
     date?: string;
     readTime?: string;
     image?: string;
+    category?: string;
     slug?: string;
   };
   Content: any;

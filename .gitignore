@@ -9,6 +9,9 @@ dist/
 .env
 .env.production
 
+# MCP config (may contain API secrets)
+.mcp.json
+
 # Git credentials (sensitive)
 .git-credentials
 

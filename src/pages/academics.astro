@@ -1,0 +1,338 @@
+---
+import Navigation from "../components/Navigation.astro";
+import Footer from "../components/Footer.astro";
+import { academicsContent } from "../config/content.ts";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{academicsContent.meta.title}</title>
+    <meta name="description" content={academicsContent.meta.description} />
+    <script is:inline>
+      (function () {
+        const savedTheme = localStorage.getItem("theme") || "light";
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        const initialTheme =
+          savedTheme === "system"
+            ? prefersDark
+              ? "dark"
+              : "light"
+            : savedTheme;
+
+        if (initialTheme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      })();
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        window
+          .matchMedia("(prefers-color-scheme: dark)")
+          .addEventListener("change", (e) => {
+            if (localStorage.getItem("theme") === "system") {
+              if (e.matches) {
+                document.documentElement.classList.add("dark");
+              } else {
+                document.documentElement.classList.remove("dark");
+              }
+            }
+          });
+      });
+    </script>
+    <style>
+      .dot-hexagon-light {
+        background-image: radial-gradient(
+            circle,
+            #80808045 1px,
+            transparent 1px
+          ),
+          radial-gradient(circle, #80808045 1px, transparent 1px);
+        background-size: 24px 41.57px;
+        background-position:
+          0 0,
+          12px 20.78px;
+      }
+
+      .dot-hexagon-dark {
+        background-image: radial-gradient(
+            circle,
+            #ffffff35 1px,
+            transparent 1px
+          ),
+          radial-gradient(circle, #ffffff35 1px, transparent 1px);
+        background-size: 24px 41.57px;
+        background-position:
+          0 0,
+          12px 20.78px;
+      }
+    </style>
+  </head>
+  <body class="bg-white dark:bg-neutral-900 transition-colors duration-300">
+    <div class="fixed inset-0 z-0 pointer-events-none">
+      <div
+        class="absolute inset-0 -z-10 dot-hexagon-light dark:dot-hexagon-dark"
+      >
+      </div>
+      <div
+        class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_50%,transparent_0%,rgba(255,255,255,0.5)_60%,rgba(255,255,255,0.9)_85%,white_100%)] dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_50%,transparent_0%,rgba(23,23,23,0.5)_60%,rgba(23,23,23,0.9)_85%,rgb(23,23,23)_100%)] -z-10"
+      >
+      </div>
+      <div
+        class="absolute left-0 right-0 top-0 -z-10 m-auto h-[1200px] w-[1200px] rounded-full bg-neutral-400 opacity-10 blur-[100px]"
+      >
+      </div>
+    </div>
+
+    <main class="flex-1 relative z-10">
+      <Navigation />
+      <section class="relative z-20 max-w-4xl mx-auto mt-32 mb-16 px-7 lg:px-0">
+        <h2
+          class="text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100 sm:text-3xl lg:text-4xl"
+        >
+          {academicsContent.title}
+        </h2>
+        <p
+          class="mt-3 text-sm leading-6 text-neutral-600 dark:text-neutral-400 sm:leading-7 lg:leading-8 sm:text-base lg:text-lg"
+        >
+          {academicsContent.description}
+        </p>
+
+        {/* Education */}
+        <h3 class="mt-14 mb-2 text-xl font-bold dark:text-neutral-200">
+          {academicsContent.education.title}
+        </h3>
+        <div class="py-6">
+          {
+            academicsContent.education.items.map((item) => (
+              <div class="pb-6 border-l border-gray-200 last:border-l-0 dark:border-neutral-700">
+                <div class="relative flex flex-col justify-start pl-12">
+                  <div class="absolute top-0 left-0 z-40 flex items-center justify-center -translate-x-1/2 bg-white border rounded-full dark:bg-neutral-950 w-14 h-14 border-neutral-300 dark:border-neutral-700">
+                    <svg
+                      class="w-7 h-7 text-neutral-700 dark:text-neutral-300"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5"
+                        d="M12 14l9-5-9-5-9 5 9 5z M12 14l6.16-3.42a12 12 0 01.84 4.42 12 12 0 01-7 2.58 12 12 0 01-7-2.58 12 12 0 01.84-4.42L12 14z"
+                      />
+                    </svg>
+                  </div>
+                  <p class="text-xs uppercase text-neutral-400 dark:text-neutral-500 tracking-widest">
+                    {item.period}
+                  </p>
+                  <h4 class="my-1 text-lg font-bold dark:text-neutral-100">
+                    {item.degree}
+                  </h4>
+                  <p class="mb-1 text-sm font-medium dark:text-neutral-300">
+                    {item.institution}
+                  </p>
+                  {item.grade && (
+                    <p class="mb-1 text-sm font-semibold text-emerald-700 dark:text-emerald-400">
+                      Grade: {item.grade}
+                    </p>
+                  )}
+                  <p class="text-sm font-light text-neutral-600 dark:text-neutral-400">
+                    {item.description}
+                  </p>
+                  {item.recognitions && item.recognitions.length > 0 && (
+                    <div class="mt-3">
+                      <p class="text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
+                        Merits & Awards
+                      </p>
+                      <div class="mt-2 flex flex-wrap gap-2">
+                        {item.recognitions.map((award) => (
+                          <span class="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium bg-amber-100 text-amber-800 dark:bg-amber-500/15 dark:text-amber-300 rounded-full">
+                            <svg
+                              class="w-3 h-3 flex-shrink-0"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.922-.755 1.688-1.54 1.118l-3.367-2.447a1 1 0 00-1.176 0l-3.367 2.447c-.784.57-1.838-.196-1.539-1.118l1.286-3.957a1 1 0 00-.363-1.118L2.98 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
+                            </svg>
+                            {award}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {item.coursework && item.coursework.length > 0 && (
+                    <div class="mt-3">
+                      <p class="text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
+                        Relevant Coursework
+                      </p>
+                      <div class="mt-2 flex flex-wrap gap-2">
+                        {item.coursework.map((course) => (
+                          <span class="inline-flex items-center px-2.5 py-1 text-xs font-medium bg-indigo-100 text-indigo-700 dark:bg-indigo-500/15 dark:text-indigo-300 rounded-full">
+                            {course}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {item.activities && item.activities.length > 0 && (
+                    <div class="mt-3">
+                      <p class="text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
+                        Activities & Societies
+                      </p>
+                      <div class="mt-2 flex flex-wrap gap-2">
+                        {item.activities.map((activity) => (
+                          <span class="inline-flex items-center px-2.5 py-1 text-xs font-medium bg-neutral-200 text-neutral-700 dark:bg-neutral-700 dark:text-neutral-200 rounded-full">
+                            {activity}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+
+        {/* Academic Projects */}
+        <h3 class="mt-8 mb-2 text-xl font-bold dark:text-neutral-200">
+          {academicsContent.projects.title}
+        </h3>
+        <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {
+            academicsContent.projects.items.map((project) => {
+              const Tag = project.href ? "a" : "div";
+              const linkProps = project.href
+                ? { href: project.href, target: "_blank" }
+                : {};
+              return (
+                <Tag
+                  {...linkProps}
+                  class:list={[
+                    "group flex flex-col rounded-xl border border-dashed border-neutral-300 dark:border-neutral-700 p-5 transition-all duration-300",
+                    project.href &&
+                      "hover:-translate-y-1 hover:border-neutral-400 dark:hover:border-neutral-500 hover:bg-white dark:hover:bg-neutral-950",
+                  ]}
+                >
+                  <div class="flex items-center gap-2">
+                    <span class="text-base font-semibold text-neutral-900 dark:text-neutral-100">
+                      {project.name}
+                    </span>
+                    {project.href && (
+                      <svg
+                        class="w-3 h-3 -rotate-45 stroke-current text-neutral-400 transition-transform duration-200 group-hover:rotate-0"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke-width="2.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M5 12h14M13 6l6 6-6 6" />
+                      </svg>
+                    )}
+                  </div>
+                  <p class="mt-0.5 text-xs uppercase tracking-widest text-neutral-400 dark:text-neutral-500">
+                    {project.period}
+                  </p>
+                  <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+                    {project.description}
+                  </p>
+                </Tag>
+              );
+            })
+          }
+        </div>
+
+        {/* Publications */}
+        <h3 class="mt-12 mb-2 text-xl font-bold dark:text-neutral-200">
+          {academicsContent.publications.title}
+        </h3>
+        <div class="mt-4 flex flex-col gap-4">
+          {
+            academicsContent.publications.items.map((pub) => (
+              <a
+                href={pub.href}
+                target="_blank"
+                class="group flex flex-col rounded-xl border border-dashed border-neutral-300 dark:border-neutral-700 p-5 transition-all duration-300 hover:-translate-y-1 hover:border-neutral-400 dark:hover:border-neutral-500 hover:bg-white dark:hover:bg-neutral-950"
+              >
+                <div class="flex items-center gap-2">
+                  <span class="text-base font-semibold text-neutral-900 dark:text-neutral-100">
+                    {pub.title}
+                  </span>
+                  <svg
+                    class="w-3 h-3 -rotate-45 stroke-current text-neutral-400 transition-transform duration-200 group-hover:rotate-0"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
+                </div>
+                <p class="mt-1 text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                  {pub.venue}
+                </p>
+                <p class="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                  {pub.detail} · {pub.date}
+                </p>
+              </a>
+            ))
+          }
+        </div>
+
+        {/* Certifications + Coursework */}
+        <div class="mt-12 flex flex-col md:flex-row gap-10">
+          <div class="flex-1">
+            <h3 class="mb-4 text-xl font-bold dark:text-neutral-200">
+              {academicsContent.certifications.title}
+            </h3>
+            <div class="flex flex-col gap-4">
+              {
+                academicsContent.certifications.items.map((cert) => (
+                  <div class="flex flex-col">
+                    <p class="text-sm font-semibold text-neutral-800 dark:text-neutral-100">
+                      {cert.name}
+                    </p>
+                    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+                      {cert.issuer} · {cert.year}
+                    </p>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+
+          <div class="flex-1">
+            <h3 class="mb-4 text-xl font-bold dark:text-neutral-200">
+              {academicsContent.coursework.title}
+            </h3>
+            <div class="flex flex-col gap-4">
+              {
+                academicsContent.coursework.items.map((course) => (
+                  <div class="flex flex-col">
+                    <p class="text-sm font-semibold text-neutral-800 dark:text-neutral-100">
+                      {course.name}
+                    </p>
+                    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+                      {course.issuer} · {course.year}
+                    </p>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+  </body>
+</html>
