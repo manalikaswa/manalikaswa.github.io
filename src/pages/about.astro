@@ -1,7 +1,7 @@
 ---
 import Navigation from "../components/Navigation.astro";
 import Footer from "../components/Footer.astro";
-import { aboutContent } from "../config/content.ts";
+import { aboutContent, resume } from "../config/content.ts";
 ---
 
 <html lang="en">
@@ -122,22 +122,42 @@ import { aboutContent } from "../config/content.ts";
                     ))
                 }
               </div>
-              <div class="mt-auto pt-4 flex flex-wrap gap-2">
-                {
-                  aboutContent.skills.map((skill) => (
-                    <span class="px-3 py-1 text-sm bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-200 rounded-full">
-                      {skill}
-                    </span>
-                  ))
-                }
+              <div class="mt-auto pt-4">
+                <div class="flex flex-wrap gap-2">
+                  {
+                    aboutContent.skills.map((skill) => (
+                      <span class="px-3 py-1 text-sm bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-200 rounded-full">
+                        {skill}
+                      </span>
+                    ))
+                  }
+                </div>
+                <a
+                  class="group mt-6 inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-neutral-900 bg-white border border-neutral-300 rounded-lg hover:bg-neutral-50 dark:bg-neutral-800 dark:text-neutral-100 dark:border-neutral-600 dark:hover:bg-neutral-700 transition-all duration-300 hover:scale-105 cursor-pointer"
+                  href={resume.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >{resume.text}<svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    ><path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2.5"
+                      d="M14 5h5m0 0v5m0-5L10 14M9 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-3"
+                    ></path></svg
+                  ></a
+                >
               </div>
             </div>
-            <div class="w-full md:w-1/2 flex justify-center md:justify-end">
-              <div class="relative w-full max-w-[340px] aspect-square">
+            <div class="w-full md:w-1/2 flex items-start justify-center md:justify-end">
+              <div class="relative w-full max-w-[340px] aspect-square flex-shrink-0">
                 <img
                   src={aboutContent.image.src}
                   alt={aboutContent.image.alt}
-                  class="object-cover rounded-full w-full h-full"
+                  class="absolute inset-0 object-cover rounded-full w-full h-full"
                 />
               </div>
             </div>

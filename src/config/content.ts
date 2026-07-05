@@ -1,3 +1,8 @@
+export const resume = {
+  text: "View Resume",
+  href: "/Manali_Kaswa_Resume.pdf",
+};
+
 export const siteConfig = {
   name: "Manali Kaswa",
   title: "Manali Kaswa",
@@ -26,6 +31,10 @@ export const homeContent = {
       text: "Read Blog",
       href: "/posts/",
     },
+    resume: {
+      text: resume.text,
+      href: resume.href,
+    },
   },
   images: {
     light: "https://multiplepage-portfolio.edgeone.app/assets/images/tech-background-light.svg",
@@ -41,16 +50,15 @@ export const aboutContent = {
   },
   title: "About Me",
   description:
-    "I'm strong in AWS, DevOps, User Identity (OAuth2), and Golang, with hands-on experience owning features, releases, and customer requirements end-to-end.\nOver the last few years I've built and scaled IoT cloud platforms — from identity systems and large device fleets to FinOps cost optimization.\nI'm now focused on software architecture and product management.\nOutside of work I'm an avid reader and I write about stuff on Medium.",
+    "I've spent the last few years deep in backend engineering — shipping features, driving releases, and owning customer requirements across DevOps, user identity, and FinOps. I'm now growing into software architecture and product management.\nOutside of work I'm an avid reader and I write about stuff on Medium.",
   skills: [
     "Go",
     "AWS",
-    "OAuth 2.0 / Identity",
+    "User Identity (OAuth 2.0)",
     "Software Architecture",
     "FinOps",
     "Product Management",
-    "Docker",
-    "Jenkins",
+    "DevOps",
     "OpenSearch",
     "Python",
     "Project Management",
